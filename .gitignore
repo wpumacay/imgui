@@ -1,0 +1,10 @@
+*.pyo
+*.pyc
+*.exe
+*.o
+*.so
+*.a
+
+build
+.vscode
+__pycache__
