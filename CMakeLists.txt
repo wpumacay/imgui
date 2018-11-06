@@ -30,9 +30,11 @@ set( IMGUI_SOURCES
      "${IMGUI_SOURCES}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_glfw.cpp"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_opengl3.cpp" )
-set( IMGUI_INCLUDE_DIRS 
+set( IMGUI_INCLUDE_DIRS
      "${IMGUI_INCLUDE_DIRS}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples" )
+
+set_property( GLOBAL PROPERTY IMGUI_INCLUDE_DIRS "${IMGUI_INCLUDE_DIRS}" )
 
 # Configure the library
 include_directories( ${IMGUI_INCLUDE_DIRS} )
