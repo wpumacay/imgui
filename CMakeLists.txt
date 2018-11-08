@@ -34,7 +34,7 @@ set( IMGUI_INCLUDE_DIRS
      "${IMGUI_INCLUDE_DIRS}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples" )
 
-set_property( GLOBAL PROPERTY IMGUI_INCLUDE_DIRS "${IMGUI_INCLUDE_DIRS}" )
+set( IMGUI_INCLUDE_DIRS "${IMGUI_INCLUDE_DIRS}" CACHE INTERNAL "" )
 
 # Configure the library
 include_directories( ${IMGUI_INCLUDE_DIRS} )
