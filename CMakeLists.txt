@@ -30,6 +30,10 @@ set( IMGUI_SOURCES
      "${IMGUI_SOURCES}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_glfw.cpp"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_opengl3.cpp" )
+set( IMGUI_SOURCES_GL2
+     "${IMGUI_SOURCES}"
+     "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_glfw.cpp"
+     "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_opengl2.cpp" )
 set( IMGUI_INCLUDE_DIRS
      "${IMGUI_INCLUDE_DIRS}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples" )
@@ -40,6 +44,10 @@ set( IMGUI_INCLUDE_DIRS "${IMGUI_INCLUDE_DIRS}" CACHE INTERNAL "" )
 include_directories( ${IMGUI_INCLUDE_DIRS} )
 add_library( imgui ${IMGUI_SOURCES} )
 target_link_libraries( imgui ${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
+
+# and a version for gl2
+add_library( imgui_gl2 ${IMGUI_SOURCES_GL2} )
+target_link_libraries( imgui_gl2 ${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
 
 ## ############################################################################
 
