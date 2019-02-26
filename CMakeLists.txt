@@ -42,11 +42,11 @@ set( IMGUI_INCLUDE_DIRS "${IMGUI_INCLUDE_DIRS}" CACHE INTERNAL "" )
 
 # Configure the library
 include_directories( ${IMGUI_INCLUDE_DIRS} )
-add_library( imgui ${IMGUI_SOURCES} )
+add_library( imgui SHARED ${IMGUI_SOURCES} )
 target_link_libraries( imgui ${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
 
 # and a version for gl2
-add_library( imgui_gl2 ${IMGUI_SOURCES_GL2} )
+add_library( imgui_gl2 SHARED ${IMGUI_SOURCES_GL2} )
 target_link_libraries( imgui_gl2 ${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
 
 ## ############################################################################
