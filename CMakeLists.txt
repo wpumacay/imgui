@@ -14,10 +14,12 @@ pkg_search_module( GLFW REQUIRED glfw3 )
 
 # Apple kind of needs to specify this (at least in the system I had available, ...
 # which was a brand new macbookair from a friend)
-if ( APPLE )
-    include_directories( /usr/local/include )
-    link_directories( /usr/local/lib )
-endif()
+##if ( APPLE )
+include_directories( /usr/local/include )
+link_directories( /usr/local/lib )
+##endif()
+
+message( "GLFW INCLUDE DIRS: ${GLFW_INCLUDE_DIRS}" )
 
 include_directories( ${GLFW_INCLUDE_DIRS} )
 include_directories( ${GLEW_INCLUDE_DIRS} )
