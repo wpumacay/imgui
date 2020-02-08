@@ -1,10 +1,8 @@
 cmake_minimum_required( VERSION 3.0.0 )
 
-message( "IMGUI> Configuring IMGUI for glfw and glew usage into a library" )
+message( "ImGui >>> Configuring ImGui for GLFW and GLEW usage into a library" )
 
-## Configuring imgui to generate an external library ##########################
-
-project( imgui )
+project( ImGui )
 
 # Configureind dependencies
 find_package( OpenGL REQUIRED )
@@ -12,14 +10,15 @@ find_package( GLEW REQUIRED )
 find_package( PkgConfig REQUIRED )
 pkg_search_module( GLFW REQUIRED glfw3 )
 
-# Apple kind of needs to specify this (at least in the system I had available, ...
-# which was a brand new macbookair from a friend)
+# Apple platform kind of needs to specify this (at least in the system I had available, 
+# which was a brand new macbookair from a friend). In some systems it's also required (they
+# don't expose these directories by default)
 ##if ( APPLE )
 include_directories( /usr/local/include )
 link_directories( /usr/local/lib )
 ##endif()
 
-message( "GLFW INCLUDE DIRS: ${GLFW_INCLUDE_DIRS}" )
+option( IMGUI_BUILD_EXAMPLES "Build examples of ImGui usage" ON )
 
 include_directories( ${GLFW_INCLUDE_DIRS} )
 include_directories( ${GLEW_INCLUDE_DIRS} )
@@ -39,10 +38,6 @@ set( IMGUI_SOURCES
      "${IMGUI_SOURCES}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_glfw.cpp"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_opengl3.cpp" )
-set( IMGUI_SOURCES_GL2
-     "${IMGUI_SOURCES}"
-     "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_glfw.cpp"
-     "${CMAKE_CURRENT_SOURCE_DIR}/examples/imgui_impl_opengl2.cpp" )
 set( IMGUI_INCLUDE_DIRS
      "${IMGUI_INCLUDE_DIRS}"
      "${CMAKE_CURRENT_SOURCE_DIR}/examples" )
@@ -54,16 +49,8 @@ include_directories( ${IMGUI_INCLUDE_DIRS} )
 add_library( imgui SHARED ${IMGUI_SOURCES} )
 target_link_libraries( imgui ${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
 
-# and a version for gl2
-add_library( imgui_gl2 SHARED ${IMGUI_SOURCES_GL2} )
-target_link_libraries( imgui_gl2 ${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
 
-## ############################################################################
-
-## Configure some tests #######################################################
-
-add_executable( test1 "tests/test1.cpp" )
-target_link_libraries( test1 imgui )
-
-
-###############################################################################
+if ( IMGUI_BUILD_EXAMPLES )
+    add_executable( test1 "tests/test1.cpp" )
+    target_link_libraries( test1 imgui )
+endif()
