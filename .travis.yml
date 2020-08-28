@@ -1,0 +1,43 @@
+language: cpp
+sudo: required
+git:
+    submodules: false
+matrix: 
+  include:
+    # build-configuration for ubuntu 16.04 - gcc
+    - os: linux
+      dist: xenial
+      compiler: gcc
+      env:
+        - BUILD_TYPE=Debug
+        - DIST_NAME="xenial"
+    - os: linux
+      dist: xenial
+      compiler: gcc
+      env:
+        - BUILD_TYPE=Release
+        - DIST_NAME="xenial"
+    # build-configuration for ubuntu 18.04 - gcc
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      env:
+        - BUILD_TYPE=Debug
+        - DIST_NAME="bionic"
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      env:
+        - BUILD_TYPE=Release
+        - DIST_NAME="bionic"
+
+before_install:
+  - sudo apt-get -q update
+  - sudo apt-get -y install pkg-config
+  - sudo apt-get -y install libassimp-dev libglfw3-dev
+script:
+  - if [ -n "${BUILD_TYPE}" ]; then
+      mkdir -p build && cd build;
+      cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..;
+      make -j4;
+    fi
