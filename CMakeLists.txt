@@ -18,11 +18,21 @@ if ( APPLE )
 endif()
 
 option( IMGUI_BUILD_EXAMPLES "Build examples of ImGui usage" ON )
+option( IMGUI_BUILD_WITH_GLAD_LOADER "Build ImGui using GLAD as gl-loader" OFF )
+option( IMGUI_BUILD_WITH_GLEW_LOADER "Build ImGui using GLEW as gl-loader" ON )
 
 include_directories( ${GLFW_INCLUDE_DIRS} )
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/examples/libs" )
-# tell imgui to use of glad as loader
-add_definitions( -DIMGUI_IMPL_OPENGL_LOADER_GLAD=1 )
+if ( IMGUI_BUILD_WITH_GLAD_LOADER )
+    message( "IMGUI >>> Using GLAD as gl-loader for ImGui" )
+    add_definitions( -DIMGUI_IMPL_OPENGL_LOADER_GLAD=1 )
+elseif( IMGUI_BUILD_WITH_GLEW_LOADER )
+    message( "IMGUI >>> Using GLEW as gl-loader for ImGui" )
+    add_definitions( -DIMGUI_IMPL_OPENGL_LOADER_GLEW=1 )
+else()
+    message( "IMGUI >>> Must choose a valid gl-loader (GLAD|GLEW)" )
+    return()
+endif()
 
 # Add main sources of the abstract imgui implementation
 set( IMGUI_SOURCES
